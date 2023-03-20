@@ -1,0 +1,12 @@
+[Default Applications]
+x-scheme-handler/http=xfce4-web-browser.desktop
+x-scheme-handler/https=xfce4-web-browser.desktop
+image/png=org.xfce.ristretto.desktop
+
+[Added Associations]
+x-scheme-handler/http=xfce4-web-browser.desktop;
+x-scheme-handler/https=xfce4-web-browser.desktop;
+image/png=org.xfce.ristretto.desktop;
+image/jpeg=org.xfce.ristretto.desktop;
+text/plain=vim.desktop;org.xfce.mousepad.desktop;
+application/pdf=libreoffice-draw.desktop;libreoffice-writer.desktop;
