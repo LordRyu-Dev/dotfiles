@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actions>
 <action>
-	<icon>Terminal</icon>
+	<icon>org.xfce.terminal</icon>
 	<name>Terminal</name>
 	<submenu></submenu>
-	<unique-id>1367866030392833-1</unique-id>
-	<command>alacritty --working-directory %f</command>
-	<description></description>
-	<range></range>
+	<unique-id>1680081729328368-1</unique-id>
+	<command>xfce4-terminal --working-directory %f</command>
+	<description>Terminal</description>
+	<range>*</range>
 	<patterns>*</patterns>
 	<directories/>
 </action>
@@ -43,5 +43,16 @@
 	<range></range>
 	<patterns>*</patterns>
 	<other-files/>
+</action>
+<action>
+	<icon>org.wezfurlong.wezterm</icon>
+	<name>wezterm</name>
+	<submenu></submenu>
+	<unique-id>1680092248251025-1</unique-id>
+	<command>wezterm start --cwd %f</command>
+	<description>wezterm</description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<directories/>
 </action>
 </actions>
