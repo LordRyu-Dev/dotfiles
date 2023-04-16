@@ -10,8 +10,8 @@
 # 色を使用
 autoload -Uz colors ; colors
 
-# エディタをvimに設定
-export EDITOR=vim
+# エディタをnvimに設定
+export EDITOR=nvim
 
 # Ctrl+Dでログアウトしてしまうことを防ぐ
 #setopt IGNOREEOF
@@ -26,10 +26,10 @@ setopt auto_pushd
 setopt pushd_ignore_dups
 
 # emacsキーバインド
-bindkey -e
+# bindkey -e
 
 # viキーバインド
-#bindkey -v
+# bindkey -v
 
 # フローコントロールを無効にする
 setopt no_flow_control
@@ -192,7 +192,14 @@ setopt inc_append_history
 setopt hist_verify
 
 #余分なスペースを削除してヒストリに記録する
-#setopt hist_reduce_blanks
+setopt hist_reduce_blanks
+
+#入力途中の履歴補完
+autoload history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "^[[A" history-beginning-search-backward-end
+bindkey "^[[B" history-beginning-search-forward-end
 
 # historyコマンドは残さない
 #setopt hist_save_no_dups
@@ -209,37 +216,47 @@ setopt hist_verify
 # Alias
 # -----------------------------
 # グローバルエイリアス
-alias -g L='| less'
-alias -g H='| head'
-alias -g G='| grep'
-alias -g GI='| grep -ri'
+#alias -g L='| less'
+#alias -g H='| head'
+#alias -g G='| grep'
+#alias -g GI='| grep -ri'
 
 # エイリアス
-alias lst='ls -ltr --color=auto'
-alias ls='ls --color=auto'
-alias la='ls -la --color=auto'
-alias ll='ls -l --color=auto'
+alias neofetch='neofetch --source ~/senaaa.txt'
+alias vimrc='nvim ~/.vimrc'
+alias initlua='nvim ~/.config/nvim/init.lua'
+alias zshrc='nvim ~/.zshrc'
+alias i3config='nvim ~/.config/i3/config'
+alias weztermlua='nvim ~/.config/wezterm/wezterm.lua'
+alias picomconf='nvim ~/.config/picom.conf'
+alias polybarini='nvim ~/dotfiles/.config/polybar/config.ini'
+alias conkyconf='nvim ~/.config/conky/conky.conf'
+alias wezsplit='wezterm cli split-pane'
+#alias lst='ls -ltr --color=auto'
+#alias ls='ls --color=auto'
+#alias la='ls -la --color=auto'
+#alias ll='ls -l --color=auto'
 
-alias du="du -Th"
-alias df="df -Th"
-alias su="su -l"
-alias so='source'
-alias vi='vim'
-alias vz='vim ~/.zshrc'
-alias c='cdr'
-alias cp='cp -i'
-alias rm='rm -i'
-alias mkdir='mkdir -p'
-alias ..='c ../'
-alias back='pushd'
-alias diff='diff -U1'
+#alias du="du -Th"
+#alias df="df -Th"
+#alias su="su -l"
+#alias so='source'
+#alias vi='nvim'
+#alias vz='nvim ~/.zshrc'
+#alias c='cdr'
+#alias cp='cp -i'
+#alias rm='rm -i'
+#alias mkdir='mkdir -p'
+#alias ..='c ../'
+#alias back='pushd'
+#alias diff='diff -U1'
 
-alias tma='tmux attach'
-alias tml='tmux list-window'
+#alias tma='tmux attach'
+#alias tml='tmux list-window'
 
-alias dki="docker run -i -t -P"
-alias dex="docker exec -i -t"
-alias drmf='docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)'
+#alias dki="docker run -i -t -P"
+#alias dex="docker exec -i -t"
+#alias drmf='docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)'
 
 # -----------------------------
 # Plugin

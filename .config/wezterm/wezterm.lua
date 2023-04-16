@@ -5,8 +5,31 @@ local config = {};
 config.font = wezterm.font("Fira Code"); -- 自分の好きなフォントいれる
 config.use_ime = true; -- wezは日本人じゃないのでこれがないとIME動かない
 config.font_size = 16.0;
-config.color_scheme = "AdventureTime"; -- 自分の好きなテーマ探す https://wezfurlong.org/wezterm/colorschemes/index.html
-config.hide_tab_bar_if_only_one_tab = true;
-config.adjust_window_size_when_changing_font_size = false;
+config.colors = {
+    foreground = '#ffffff',
+    background = '#120537',
 
+    ansi = {
+        '#17115c',
+        '#8a5288',
+        '#b962ee',
+        '#c49251',
+        '#0d3687',
+        '#4100aa',
+        '#0b92be',
+        '#acb5c5',
+    },
+    brights = {
+        '#2f3f8c',
+        '#ff9fed', 
+        '#d57cff',
+        '#ffe49c',
+        '#5b83ef',
+        '#8b55ff',
+        '#a4fdf3',
+        '#f1f3fd',
+    }
+};
+
+config.adjust_window_size_when_changing_font_size = false;
 return config;

@@ -29,11 +29,13 @@ exec --no-startup-id nm-applet
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id ~/bin/volume.sh 2dB+ unmute && $refresh_i3status 
+# pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id ~/bin/volume.sh 2dB- unmute && $refresh_i3status 
+# pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id ~/bin/volume.sh toggle && $refresh_i3status 
+# pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
-
 
 #####################
 # workspace layout: #
@@ -330,7 +332,7 @@ for_window [class=Thunar] focus
 #
 # for custom config:
 # exec_always --no-startup-id picom --config  ~/.config/picom.conf
-exec --no-startup-id picom -b
+exec_always --no-startup-id picom -b
 
 # start conky:
 exec --no-startup-id conky -b -c ~/.config/conky/conky.conf
@@ -343,9 +345,9 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id sleep 1 && feh --bg-fill /home/lordryu/Pictures/wallpaper/senawallpaper_zwei.png
 
 # Desktop notifications
-#exec --no-startup-id dbus-launch dunst --config ~/.config/dunst/dunstrc
+exec --no-startup-id dbus-launch dunst --config ~/.config/dunst/dunstrc
 # alternative if you installed aside with XFCE4:
-exec --no-startup-id /usr/lib/xfce4/notifyd/xfce4-notifyd &
+# exec --no-startup-id /usr/lib/xfce4/notifyd/xfce4-notifyd &
 
 # autotiling script
 # https://github.com/nwg-piotr/autotiling
@@ -359,19 +361,25 @@ exec_always --no-startup-id autotiling
 # you need to have tray apps started manually one by one:
 
 # start blueman app for managing bluetooth devices from tray:
-# exec --no-startup-id blueman-applet
+exec --no-startup-id blueman-applet
 
 # clipman-applet
-# exec --no-startup-id xfce4-clipman
+exec --no-startup-id xfce4-clipman
 
 # fcitx5
 exec --no-startup-id fcitx5
 
 # notes
-# exec --no-startup-id xfce4-notes
+exec --no-startup-id xfce4-notes
 
 # powermanager
 exec --no-startup-id xfce4-power-manager
+
+# xfce4-panel
+# exec --no-startup-id xfce4-panel --disable-wm-check
+
+# polybar
+exec_always --no-startup-id ~/.config/polybar/launch.sh
 
 ######################################
 # color settings for bar and windows #

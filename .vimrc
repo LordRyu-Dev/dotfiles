@@ -9,11 +9,9 @@ filetype plugin indent on
 
 " カーソルラインの表示・トグル
 set cursorline
-set cursorline!
 
 " 行番号・相対的な行番号
 set number
-set relativenumber
 
 " 検索結果をハイライトする
 set hlsearch
@@ -78,9 +76,6 @@ set clipboard=unnamedplus
 " .vimrcを開く
 nnoremap <Space>. :<C-u>tabedit $MYVIMRC<CR>
 
-" コピペの繰り返し
-vnoremap <silent> <C-p> "Op<CR>
-
 " Vimのバッファやレジスタ内などで使用する文字コードを設定
 set encoding=utf-8
 
@@ -97,8 +92,13 @@ set fileencodings=utf-8,iso-2022-jp,euc-jp,sjis
 if (has("termguicolors"))
     set termguicolors
 endif
-
 " Jetpack Install
+let s:jetpackfile = expand('<sfile>:p:h') .. '/pack/jetpack/opt/vim-jetpack/plugin/jetpack.vim'
+let s:jetpackurl = "https://raw.githubusercontent.com/tani/vim-jetpack/master/plugin/jetpack.vim"
+if !filereadable(s:jetpackfile)
+  call system(printf('curl -fsSLo %s --create-dirs %s', s:jetpackfile, s:jetpackurl))
+endif
+
 packadd vim-jetpack
 call jetpack#begin()
 " Plugins list
