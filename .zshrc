@@ -26,12 +26,6 @@ setopt auto_pushd
 # ディレクトリスタックへの追加の際に重複させない
 setopt pushd_ignore_dups
 
-# emacsキーバインド
-# bindkey -e
-
-# viキーバインド
-# bindkey -v
-
 # フローコントロールを無効にする
 setopt no_flow_control
 
