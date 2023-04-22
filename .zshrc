@@ -384,4 +384,4 @@ function git_commit_hook(){
     echo "Thank you your commit!ろどりゅうさん\nコミットお疲れさま！\nいつも頑張っててえらーい！"
   fi
 }
-alias 'git commit'='git commit && git_commit_hook'
+alias git commit='git commit && git_commit_hook'
