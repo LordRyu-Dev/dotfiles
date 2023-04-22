@@ -18,6 +18,7 @@ export EDITOR=nvim
 
 # パスを追加したい場合
 export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/sh:$PATH"
 
 # cdした際のディレクトリをディレクトリスタックへ自動追加
 setopt auto_pushd
@@ -376,12 +377,3 @@ function gs() {
   cut -d: -f1
 }
 
-# せーなちゃん
-function git_commit_hook(){
-  if test -e ~/senazshaa.txt
-  then
-    cat ~/senazshaa.txt
-    echo "Thank you your commit!ろどりゅうさん\nコミットお疲れさま！\nいつも頑張っててえらーい！"
-  fi
-}
-alias git commit='git commit && git_commit_hook'
