@@ -375,3 +375,13 @@ function gs() {
   git stash list | fzf-down --reverse -d: --preview 'git show --color=always {1}' |
   cut -d: -f1
 }
+
+# せーなちゃん
+function git_commit_hook(){
+  if test -e ~/senazshaa.txt
+  then
+    cat ~/senazshaa.txt
+    echo "Thank you your commit!ろどりゅうさん\nコミットお疲れさま！\nいつも頑張っててえらーい！"
+  fi
+}
+alias 'git commit'='git commit && git_commit_hook'

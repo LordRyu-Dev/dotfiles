@@ -1,0 +1,5 @@
+configuration {
+    font: "Fira Code 10";
+    terminal: "wezterm";
+    modi; "run,drun,window"
+}

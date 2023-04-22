@@ -340,9 +340,13 @@ exec --no-startup-id conky -b -c ~/.config/conky/conky.conf
 #get auth work with polkit-gnome
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
+# dual monitor
+
+# exec --no-startup-id /home/lordryu/bin/dual.sh
+
 # set wallpaper
 # exec --no-startup-id sleep 2 && nitrogen --restore
-exec --no-startup-id sleep 1 && feh --bg-fill /home/lordryu/Pictures/wallpaper/senawallpaper_zwei.png
+exec --no-startup-id sleep 1 && feh --bg-fill /home/lordryu/Pictures/wallpaper/senawallpaper_zwei.png --bg-fill /home/lordryu/Pictures/wallpaper/senawallpaper.png
 
 # Desktop notifications
 exec --no-startup-id dbus-launch dunst --config ~/.config/dunst/dunstrc

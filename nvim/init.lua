@@ -1,5 +1,3 @@
-print('init.lua')
-
 --<Leader>にSpaceキーを割り当て
 vim.g.mapleader = ' '
 
@@ -22,6 +20,10 @@ vim.opt.ignorecase = true
 
 -- 検索時、大文字を入力した場合大文字小文字を区別する
 vim.opt.smartcase = true
+
+--行を折り返す
+vim.opt.wrap = true
+vim.opt.display = "lastline"
 
 --書き込み可能に変更
 vim.opt.modifiable = true
@@ -54,6 +56,13 @@ vim.opt.wildmenu = true
 -- スワップファイルを作らない
 vim.o.noswapfile = true
 
+-- 補完メニューの高さ
+vim.opt.pumheight=10
+
+-- 括弧のカーソル処理
+vim.opt.showmatch = true
+vim.opt.matchtime = 1
+
 -- クリップボードの利用
 vim.opt.clipboard:append{'unnamedplus'}
 
@@ -76,52 +85,691 @@ end
 vim.scriptencoding='utf-8'
 vim.termencoding='utf-8'
 
--- init.luaを開く
-vim.api.nvim_set_keymap('n', '<Leader>.','<cmd>tabedit $MYVIMRC<cr>', {noremap = true, silent = true})
+-- マッピングYを行末までのヤンクにする
+vim.api.nvim_set_keymap('n', 'Y', 'y$', {noremap = true})
 
--- Jetpackをインストール
-local fn = vim.fn
-local jetpackfile = fn.stdpath('data') .. '/site/pack/jetpack/opt/vim-jetpack/plugin/jetpack.vim'
-local jetpackurl = 'https://raw.githubusercontent.com/tani/vim-jetpack/master/plugin/jetpack.vim'
-if fn.filereadable(jetpackfile) == 0 then
-  fn.system('curl -fsSLo ' .. jetpackfile .. ' --create-dirs ' .. jetpackurl)
+-- init.luaを開く
+vim.api.nvim_set_keymap('n', '<Leader>.','<cmd>tabedit $MYVIMRC<cr>', {noremap = true})
+
+-- lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
+
+require("lazy").setup({
+    'folke/lazy.nvim',
+    'h-hg/fcitx.nvim',
+    'tpope/vim-repeat',
+    'nvim-lua/popup.nvim',
+    'nvim-lua/plenary.nvim',
+    'MunifTanjim/nui.nvim',
+    'nvim-tree/nvim-web-devicons',
+    'rcarriga/nvim-notify',
+    'EdenEast/nightfox.nvim',
+    'hrsh7th/nvim-cmp',
+    'onsails/lspkind.nvim',
+    'hrsh7th/cmp-nvim-lsp',
+    'hrsh7th/cmp-nvim-lsp-signature-help',
+    'hrsh7th/cmp-nvim-lsp-document-symbol',
+    'hrsh7th/cmp-buffer',
+    'hrsh7th/cmp-path',
+    'hrsh7th/cmp-omni',
+    'hrsh7th/cmp-nvim-lua',
+    'hrsh7th/cmp-emoji',
+    'hrsh7th/cmp-calc',
+	'lukas-reineke/cmp-under-comparator',
+    'f3fora/cmp-spell',
+    'yutkat/cmp-mocword',
+    'uga-rosa/cmp-dictionary',
+    'saadparwaiz1/cmp_luasnip',
+    'ray-x/cmp-treesitter',
+    'hrsh7th/cmp-cmdline',
+    'neovim/nvim-lspconfig',
+    'williamboman/nvim-lsp-installer',
+    'tamago324/nlsp-settings.nvim',
+    'weilbith/nvim-lsp-smag',
+    'kkharji/lspsaga.nvim',
+    'folke/lsp-colors.nvim',
+    'EthanJWright/toolwindow.nvim',
+    'j-hui/fidget.nvim',
+    'nvim-telescope/telescope.nvim',
+    'nvim-telescope/telescope-frecency.nvim',
+    'nvim-telescope/telescope-symbols.nvim',
+    'nvim-telescope/telescope-github.nvim',
+    'nvim-telescope/telescope-fzf-writer.nvim',
+    'nvim-telescope/telescope-smart-history.nvim',
+    'nvim-telescope/telescope-media-files.nvim',
+    'LinArcX/telescope-command-palette.nvim',
+    'nvim-treesitter/nvim-treesitter',
+    'yioneko/nvim-yati',
+    'nvim-treesitter/nvim-treesitter-context',
+    'p00f/nvim-ts-rainbow',
+    'JoosepAlviste/nvim-ts-context-commentstring',
+    'haringsrob/nvim_context_vt',
+    'nvim-treesitter/nvim-treesitter-refactor',
+    'nvim-treesitter/nvim-tree-docs',
+    'vigoux/architext.nvim',
+    'm-demare/hlargs.nvim',
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    'RRethy/nvim-treesitter-textsubjects',
+    'mfussenegger/nvim-treehopper',
+    'David-Kunz/treesitter-unit',
+    'mizlan/iswap.nvim',
+    'nvim-lualine/lualine.nvim',
+    'SmiteshP/nvim-gps',
+    'akinsho/bufferline.nvim',
+    'RRethy/vim-illuminate',
+    'norcalli/nvim-colorizer.lua',
+    't9md/vim-quickhl',
+    'Pocco81/high-str.nvim',
+    'folke/todo-comments.nvim',
+    'mvllow/modes.nvim',
+    'sidebar-nvim/sidebar.nvim',
+    'sunjon/stylish.nvim',
+    'goolord/alpha-nvim',
+    'petertriho/nvim-scrollbar',
+    'edluffy/specs.nvim',
+    'phaazon/hop.nvim',
+    'unblevable/quick-scope',
+    'ggandor/lightspeed.nvim',
+    'haya14busa/vim-edgemotion',
+    'machakann/vim-columnmove',
+    'justinmk/vim-ipmotion',
+    'bkad/CamelCaseMotion',
+    'yutkat/wb-only-current-line.nvim',
+    'osyo-manga/vim-milfeulle',
+    'terryma/vim-expand-region',
+    'terryma/vim-multiple-cursors',
+    'kana/vim-niceblock',
+    'thinca/vim-partedit',
+    'yutkat/delete-word-to-chars.nvim',
+    'gbprod/substitute.nvim',
+    'machakann/vim-sandwich',
+    'AckslD/nvim-revJ.lua',
+    'deris/vim-rengbang',
+    'monaqa/dial.nvim',
+    'gbprod/yanky.nvim',
+    'AckslD/nvim-neoclip.lua',
+    'yutkat/auto-paste-mode.vim',
+    'tversteeg/registers.nvim',
+    'AckslD/nvim-anywise-reg.lua',
+    'kevinhwang91/nvim-hlslens',
+    'haya14busa/vim-asterisk',
+    'lambdalisue/reword.vim',
+    'haya14busa/vim-metarepeat',
+    'nvim-pack/nvim-spectre',
+    'nvim-neo-tree/neo-tree.nvim',
+    'wsdjeg/vim-fetch',
+    'famiu/bufdelete.nvim',
+    'stevearc/stickybuf.nvim',
+    'tkmpypy/chowcho.nvim',
+    'kwkarlwang/bufresize.nvim',
+    'simnalamburt/vim-mundo',
+    'AndrewRadev/linediff.vim',
+    'chentau/marks.nvim',
+    'lambdalisue/readablefold.vim',
+    'thinca/vim-ref',
+    'folke/which-key.nvim',
+    'kevinhwang91/nvim-bqf',
+    'gabrielpoca/replacer.nvim',
+    'rmagatti/auto-session',
+    'rmagatti/session-lens',
+    'zdcthomas/medit',
+    'Pocco81/AbbrevMan.nvim',
+    'tyru/capture.vim',
+    'jghauser/mkdir.nvim',
+    'sQVe/sort.nvim',
+    'yutkat/confirm-quit.nvim',
+    'yutkat/history-ignore.nvim',
+    'akinsho/toggleterm.nvim',
+    'aiya000/aho-bakaup.vim',
+    'voldikss/vim-translator',
+    'segeljakt/vim-silicon',
+    'mrjones2014/legendary.nvim',
+    'renerocksai/telekasten.nvim',
+    'Shougo/vinarise.vim',
+    'mattn/vim-sonictemplate',
+    'zsugabubus/crazy8.nvim',
+    'lfilho/cosco.vim',
+    'lukas-reineke/indent-blankline.nvim',
+    'kristijanhusak/line-notes.nvim',
+    'numToStr/Comment.nvim',
+    's1n7ax/nvim-comment-frame',
+    'LudoPinelli/comment-box.nvim',
+    'danymat/neogen',
+    'andymass/vim-matchup',
+    'windwp/nvim-autopairs',
+    'windwp/nvim-ts-autotag',
+    'rgroli/other.nvim',
+    'klen/nvim-test',
+    'michaelb/sniprun',
+    'yutkat/taskrun.nvim',
+    'jose-elias-alvarez/null-ls.nvim',
+    'gpanders/editorconfig.nvim',
+    'ntpeters/vim-better-whitespace',
+    'stevearc/aerial.nvim',
+    'L3MON4D3/LuaSnip',
+    'kevinhwang91/nvim-hclipboard',
+    'rafamadriz/friendly-snippets',
+    'ahmedkhalf/project.nvim',
+    'klen/nvim-config-local',
+    'TimUntersberger/neogit',
+    'sindrets/diffview.nvim',
+    'akinsho/git-conflict.nvim',
+    'lewis6991/gitsigns.nvim',
+    'yutkat/convert-git-url.vim',
+    'rhysd/committia.vim',
+    'hotwatermorning/auto-git-diff',
+    'pwntester/octo.nvim',
+    'sentriz/vim-print-debug',
+    'rcarriga/nvim-dap-ui',
+    'theHamsta/nvim-dap-virtual-text',
+    'nvim-telescope/telescope-dap.nvim',
+    'hkupty/iron.nvim',
+    'vuki656/package-info.nvim',
+    'bennypowers/nvim-regexplainer',
+    'iamcco/markdown-preview.nvim',
+    'dhruvasagar/vim-table-mode',
+    'jsborjesson/vim-uppercase-sql',
+    'Decodetalkers/csv-tools.lua',
+    'MTDL9/vim-log-highlighting',
+    'bfredl/nvim-luadev',
+    'wadackel/nvim-syntax-info',
+})
+
+--hlslens設定
+
+require('hlslens').setup()
+
+local kopts = {noremap = true, silent = true}
+
+vim.api.nvim_set_keymap('n', 'n',
+    [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]],
+    kopts)
+vim.api.nvim_set_keymap('n', 'N',
+    [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]],
+    kopts)
+vim.api.nvim_set_keymap('n', '*', [[*<Cmd>lua require('hlslens').start()<CR>]], kopts)
+vim.api.nvim_set_keymap('n', '#', [[#<Cmd>lua require('hlslens').start()<CR>]], kopts)
+vim.api.nvim_set_keymap('n', 'g*', [[g*<Cmd>lua require('hlslens').start()<CR>]], kopts)
+vim.api.nvim_set_keymap('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]], kopts)
+
+vim.api.nvim_set_keymap('n', '<Leader>l', '<Cmd>noh<CR>', kopts)
+
+--stickybuf設定
+require("stickybuf").setup({
+  -- This function is run on BufEnter to determine pinning should be activated
+  get_auto_pin = function(bufnr)
+    -- You can return "bufnr", "buftype", "filetype", or a custom function to set how the window will be pinned
+    -- The function below encompasses the default logic. Inspect the source to see what it does.
+    return require("stickybuf").should_auto_pin(bufnr)
+  end
+})
+
+--カラースキーム
+vim.cmd 'autocmd ColorScheme * highlight Normal ctermbg=none guibg=none'
+vim.cmd 'autocmd ColorScheme * highlight NonText ctermbg=none guibg=none'
+vim.cmd 'autocmd ColorScheme * highlight LineNr ctermbg=none guibg=none'
+vim.cmd 'autocmd ColorScheme * highlight Folded ctermbg=none guibg=none'
+vim.cmd 'autocmd ColorScheme * highlight EndOfBuffer ctermbg=none guibg=none'
+vim.cmd 'colorscheme nightfox'
+
+-- ダッシュボード・スタート画面プラグイン alpha-nvimの設定
+local alpha = require("alpha")
+local dashboard = require("alpha.themes.dashboard")
+
+local function capture(cmd, raw)
+	local f = assert(io.popen(cmd, "r"))
+	local s = assert(f:read("*a"))
+	f:close()
+	if raw then
+		return s
+	end
+	s = string.gsub(s, "^%s+", "")
+	s = string.gsub(s, "%s+$", "")
+	s = string.gsub(s, "[\n\r]+", " ")
+	return s
 end
 
--- プラグイン管理
-local jetpackFunc = vim.api.nvim_exec(
-[[
-    packadd vim-jetpack
-    call jetpack#begin()
-    
-    call jetpack#add('tani/vim-jetpack')                         
-    call jetpack#add('iamcco/markdown-preview.nvim')
-    call jetpack#add('lambdalisue/fern.vim')
-    call jetpack#add('yuki-yano/fern-preview.vim')               
-    call jetpack#add('lambdalisue/fern-git-status.vim')          
-    call jetpack#add('lambdalisue/nerdfont.vim')                 
-    call jetpack#add('lambdalisue/fern-renderer-nerdfont.vim')   
-    call jetpack#add('lambdalisue/glyph-palette.vim')            
-    call jetpack#add('lambdalisue/fern-bookmark.vim')            
-    call jetpack#add('mattn/vim-maketable')                      
-    call jetpack#add('prabirshrestha/vim-lsp')                   
-    call jetpack#add('prabirshrestha/async.vim')                 
-    call jetpack#add('prabirshrestha/asyncomplete.vim')          
-    call jetpack#add('prabirshrestha/asyncomplete-lsp.vim')      
-    call jetpack#add('hrsh7th/vim-vsnip')                        
-    call jetpack#add('simeji/winresizer')                        
-    call jetpack#add('itchyny/lightline.vim')                    
-    call jetpack#add('tpope/vim-fugitive')                       
-    call jetpack#add('mattn/emmet-vim')                          
-    call jetpack#add('skanehira/translate.vim')                  
-    call jetpack#add('skanehira/docker.vim')                     
-    call jetpack#add('neoclide/coc.nvim',{'branch': 'release'})  
-    call jetpack#add('tpope/vim-surround')                       
-    call jetpack#add('airblade/vim-gitgutter')                   
-    call jetpack#add('tpope/vim-commentary')                     
-    call jetpack#add('jiangmiao/auto-pairs')
-    
-    call jetpack#end()
-]],
-true)
+local function split(source, sep)
+	local result, i = {}, 1
+	while true do
+		local a, b = source:find(sep)
+		if not a then
+			break
+		end
+		local candidat = source:sub(1, a - 1)
+		if candidat ~= "" then
+			result[i] = candidat
+		end
+		i = i + 1
+		source = source:sub(b + 1)
+	end
+	if source ~= "" then
+		result[i] = source
+	end
+	return result
+end
 
-print(jetpackFunc)
+dashboard.section.header.val = vim.fn.readfile(vim.fn.expand("~/.config/nvim/dashboard_custom_header.txt"))
+dashboard.section.footer.val = "Total plugins: " .. require("lazy").stats().count
+dashboard.section.header.opts.hl = "Question"
+-- dashboard.section.header.val = vim.fn.readfile(vim.fn.expand("~/.config/nvim/lua/rc/files/dashboard_custom_header.txt"))
+dashboard.section.buttons.val = {
+	dashboard.button("s", " Open last session", ":PossessionLoadCurrent<CR>"),
+	dashboard.button("h", "  Recently opened files", ":Telescope my_mru<CR>"),
+	dashboard.button("f", " Find file", ":Telescope find_files<CR>"),
+	dashboard.button("e", " New file", ":enew<CR>"),
+	dashboard.button("b", " Jump to bookmarks", ":Telescope marks<CR>"),
+	dashboard.button("n", " Memo New", ":Telekasten new_note<CR>"),
+	dashboard.button("t", " Memo Today", ":Telekasten goto_today<CR>"),
+	dashboard.button("w", " Memo Week", ":Telekasten goto_thisweek<CR>"),
+	dashboard.button("m", " Memo List", ":Telekasten find_notes<CR>"),
+	dashboard.button("p", " Update plugins", ":Lazy sync<CR>"),
+	dashboard.button("q", " Exit", ":qa<CR>"),
+}
+alpha.setup(dashboard.config)
+
+vim.api.nvim_create_augroup("vimrc_alpha", { clear = true })
+vim.api.nvim_create_autocmd({ "User" }, {
+	group = "vimrc_alpha",
+	pattern = "AlphaReady",
+	callback = function()
+		if vim.fn.executable("onefetch") == 1 then
+			local header = split(
+				capture(
+					[[onefetch 2>/dev/null | sed 's/\x1B[@A-Z\\\]^_]\|\x1B\[[0-9:;<=>?]*[-!"#$%&'"'"'()*+,.\/]*[][\\@A-Z^_`a-z{|}~]//g']],
+					true
+				),
+				"\n"
+			)
+			if next(header) ~= nil then
+				require("alpha.themes.dashboard").section.header.val = header
+				require("alpha").redraw()
+			end
+		end
+	end,
+	once = true,
+})
+
+-- 括弧自動閉じプラグイン nvim-autopairs有効化
+require("nvim-autopairs").setup({ map_cr = true })
+
+--コメントアウトプラグイン Comment有効化
+require("Comment").setup({
+	---Add a space b/w comment and the line
+	---@type boolean
+	padding = true,
+
+	---Line which should be ignored while comment/uncomment
+	---Example: Use '^$' to ignore empty lines
+	---@type string Lua regex
+	ignore = nil,
+
+	---Whether to create basic (operator-pending) and extra mappings for NORMAL/VISUAL mode
+	---@type table
+	mappings = {
+		---operator-pending mapping
+		---Includes `gcc`, `gcb`, `gc[count]{motion}` and `gb[count]{motion}`
+		basic = true,
+		---extended mapping
+		---Includes `g>`, `g<`, `g>[count]{motion}` and `g<[count]{motion}`
+		extra = false,
+	},
+
+	---LHS of line and block comment toggle mapping in NORMAL/VISUAL mode
+	---@type table
+	toggler = {
+		---line-comment toggle
+		line = "gcc",
+		---block-comment 
+		block = "gbc",
+	},
+
+	---LHS of line and block comment operator-mode mapping in NORMAL/VISUAL mode
+	---@type table
+	opleader = {
+		---line-comment opfunc mapping
+		line = "gc",
+		---block-comment opfunc mapping
+		block = "gb",
+	},
+
+	---Pre-hook, called before commenting the line
+	---@type function|nil
+	pre_hook = function()
+		return require("ts_context_commentstring.internal").calculate_commentstring()
+	end,
+	---Post-hook, called after commenting is done
+	---@type function|nil
+	post_hook = nil,
+})
+
+vim.api.nvim_set_keymap("n", "<C-/>", "<Cmd>lua require('Comment.api').toggle.linewise.current()<CR>", {noremap = true})
+vim.api.nvim_set_keymap("i", "<C-/>", "<Esc>:<C-u><Cmd>lua require('Comment.api').toggle.linewise.current()<CR>\"_cc<CR>i", {noremap = true})
+vim.api.nvim_set_keymap("v", "<C-/>", "gc", {noremap = true})
+
+-- インデントを見やすくするプラグイン、indent-blanklineの導入
+
+vim.opt.list=true
+vim.opt.listchars:append "space:⋅"
+vim.opt.listchars:append "eol:↴"
+
+require("indent_blankline").setup({
+	space_char_blankline = " ",
+	show_current_context = true,
+	use_treesitter = true,
+	show_current_context_start = true,
+	buftype_exclude = { "terminal" },
+	filetype_exclude = {
+		"help",
+		"dashboard",
+		"dashpreview",
+		"NvimTree",
+		"neo-tree",
+		"vista",
+		"sagahover",
+		"sagasignature",
+		"packer",
+		"lazy",
+		"log",
+		"lspsagafinder",
+		"lspinfo",
+		"dapui_scopes",
+		"dapui_breakpoints",
+		"dapui_stacks",
+		"dapui_watches",
+		"dap-repl",
+		"toggleterm",
+		"alpha",
+		"coc-explorer",
+	},
+	-- char_highlight_list = {
+	--   "IndentBlanklineIndent1", "IndentBlanklineIndent1", "IndentBlanklineIndent1",
+	--   "IndentBlanklineIndent1", "IndentBlanklineIndent1", "IndentBlanklineIndent1",
+	--   "IndentBlanklineChar", "IndentBlanklineChar", "IndentBlanklineChar", "IndentBlanklineChar",
+	--   "IndentBlanklineChar", "IndentBlanklineChar", "IndentBlanklineChar", "IndentBlanklineChar",
+	--   "IndentBlanklineChar", "IndentBlanklineChar", "IndentBlanklineChar", "IndentBlanklineChar",
+	--   "IndentBlanklineChar", "IndentBlanklineChar", "IndentBlanklineChar", "IndentBlanklineChar",
+	--   "IndentBlanklineChar", "IndentBlanklineChar", "IndentBlanklineChar", "IndentBlanklineChar",
+	--   "IndentBlanklineChar", "IndentBlanklineChar", "IndentBlanklineChar", "IndentBlanklineChar",
+	--   "IndentBlanklineChar", "IndentBlanklineChar", "IndentBlanklineChar", "IndentBlanklineChar",
+	--   "IndentBlanklineChar", "IndentBlanklineChar", "IndentBlanklineChar", "IndentBlanklineChar",
+	--   "IndentBlanklineChar", "IndentBlanklineChar"
+	-- }
+})
+
+-- vim.api.nvim_clear_autocmds({ event = { "TextChanged", "TextChangedI" }, group = "IndentBlanklineAutogroup" })
+
+-- 自動補完プラグイン nvim-cmpの設定
+vim.g.completeopt = "menu,menuone,noselect"
+
+local cmp = require("cmp")
+local types = require("cmp.types")
+local luasnip = require("luasnip")
+local has_words_before = function()
+	local unpack = unpack or table.unpack ---@diagnostic disable-line: deprecated
+	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
+local t = function(str)
+	return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
+cmp.setup({
+	formatting = {
+		-- fields = {'abbr', 'kind', 'menu'},
+		format = require("lspkind").cmp_format({
+			with_text = true,
+			menu = {
+				buffer = "[Buffer]",
+				nvim_lsp = "[LSP]",
+				cmp_tabnine = "[TabNine]",
+				-- copilot = "[Copilot]",
+				luasnip = "[LuaSnip]",
+				nvim_lua = "[NeovimLua]",
+				latex_symbols = "[LaTeX]",
+				path = "[Path]",
+				omni = "[Omni]",
+				spell = "[Spell]",
+				emoji = "[Emoji]",
+				calc = "[Calc]",
+				rg = "[Rg]",
+				treesitter = "[TS]",
+				dictionary = "[Dictionary]",
+				mocword = "[mocword]",
+				cmdline = "[Cmd]",
+				cmdline_history = "[History]",
+			},
+		}),
+	},
+	snippet = {
+		expand = function(args)
+			luasnip.lsp_expand(args.body) -- For `luasnip` users.
+		end,
+	},
+	sorting = {
+		comparators = {
+			cmp.config.compare.offset,
+			cmp.config.compare.exact,
+			cmp.config.compare.score,
+			require("cmp-under-comparator").under,
+			function(entry1, entry2)
+				local kind1 = entry1:get_kind()
+				kind1 = kind1 == types.lsp.CompletionItemKind.Text and 100 or kind1
+				local kind2 = entry2:get_kind()
+				kind2 = kind2 == types.lsp.CompletionItemKind.Text and 100 or kind2
+				if kind1 ~= kind2 then
+					if kind1 == types.lsp.CompletionItemKind.Snippet then
+						return false
+					end
+					if kind2 == types.lsp.CompletionItemKind.Snippet then
+						return true
+					end
+					local diff = kind1 - kind2
+					if diff < 0 then
+						return true
+					elseif diff > 0 then
+						return false
+					end
+				end
+			end,
+			cmp.config.compare.sort_text,
+			cmp.config.compare.length,
+			cmp.config.compare.order,
+		},
+	},
+
+	mapping = {
+		["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
+		["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+		-- selene: allow(unused_variable)
+		---@diagnostic disable-next-line: unused-local
+		["<Up>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+			else
+				vim.api.nvim_feedkeys(t("<Up>"), "n", true)
+			end
+		end, { "i" }),
+		-- selene: allow(unused_variable)
+		---@diagnostic disable-next-line: unused-local
+		["<Down>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+			else
+				vim.api.nvim_feedkeys(t("<Down>"), "n", true)
+			end
+		end, { "i" }),
+
+		["<Tab>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.select_next_item()
+				-- elseif luasnip.expand_or_jumpable() then
+				-- 	luasnip.expand_or_jump()
+			elseif has_words_before() then
+				cmp.complete()
+			else
+				fallback()
+			end
+		end, { "i", "s" }),
+
+		["<S-Tab>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.select_prev_item()
+			elseif luasnip.jumpable(-1) then
+				luasnip.jump(-1)
+			else
+				fallback()
+			end
+		end, { "i", "s" }),
+
+		["<C-Down>"] = cmp.mapping(function(fallback)
+			if luasnip.expand_or_jumpable() then
+				luasnip.expand_or_jump()
+			else
+				fallback()
+			end
+		end, { "i", "s" }),
+
+		["<C-Up>"] = cmp.mapping(function(fallback)
+			if luasnip.jumpable(-1) then
+				luasnip.jump(-1)
+			else
+				fallback()
+			end
+		end, { "i", "s" }),
+		["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+		["<C-y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+		["<C-q>"] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
+		["<CR>"] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+	},
+	-- LuaFormatter off
+	sources = cmp.config.sources({
+		-- { name = "copilot", priority = 90 }, -- For luasnip users.
+		{ name = "nvim_lsp", priority = 100 },
+		{ name = "cmp_tabnine", priority = 30 },
+		{ name = "luasnip", priority = 20 }, -- For luasnip users.
+		{ name = "path", priority = 100 },
+		{ name = "emoji", insert = true, priority = 60 },
+		{ name = "nvim_lua", priority = 50 },
+		{ name = "nvim_lsp_signature_help", priority = 80 },
+	}, {
+		{ name = "buffer", priority = 50 },
+		-- slow
+		-- { name = "omni", priority = 40 },
+		{ name = "spell", priority = 40 },
+		{ name = "calc", priority = 50 },
+		{ name = "treesitter", priority = 30 },
+		{ name = "dictionary", keyword_length = 2, priority = 10 },
+	}),
+	-- LuaFormatter on
+})
+
+cmp.setup.filetype({ "gitcommit", "markdown" }, {
+	sources = cmp.config.sources({
+		-- { name = "copilot", priority = 90 }, -- For luasnip users.
+		{ name = "nvim_lsp", priority = 100 },
+		{ name = "cmp_tabnine", priority = 30 },
+		{ name = "luasnip", priority = 80 }, -- For luasnip users.
+		{ name = "rg", priority = 70 },
+		{ name = "path", priority = 100 },
+		{ name = "emoji", insert = true, priority = 60 },
+	}, {
+		{ name = "buffer", priority = 50 },
+		-- { name = "omni", priority = 40 },
+		{ name = "spell", priority = 40 },
+		{ name = "calc", priority = 50 },
+		{ name = "treesitter", priority = 30 },
+		{ name = "mocword", priority = 60 },
+		{ name = "dictionary", keyword_length = 2, priority = 10 },
+	}),
+})
+
+-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline("/", {
+	mapping = cmp.mapping.preset.cmdline(),
+	sources = cmp.config.sources({
+		{ name = "nvim_lsp_document_symbol" },
+		-- { name = "cmdline_history" },
+		{ name = "buffer" },
+	}, {}),
+})
+
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(":", {
+	mapping = {
+		["<Tab>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.select_next_item()
+			else
+				fallback()
+			end
+		end, { "c" }),
+
+		["<S-Tab>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.select_prev_item()
+			else
+				fallback()
+			end
+		end, { "c" }),
+		["<C-y>"] = {
+			c = cmp.mapping.confirm({ select = false }),
+		},
+		["<C-q>"] = {
+			c = cmp.mapping.abort(),
+		},
+	},
+	sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" }, { { name = "cmdline_history" } } }),
+})
+
+-- cmp.event:on("menu_opened", function()
+-- 	vim.b.copilot_suggestion_hidden = true
+-- end)
+--
+-- cmp.event:on("menu_closed", function()
+-- 	vim.b.copilot_suggestion_hidden = false
+-- end)
+-- autopairs
+-- local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+-- cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+
+-- cmp辞書プラグイン cmp-dictionaryの設定
+local dict = require("cmp_dictionary")
+dict.setup({
+	-- The following are default values.
+	exact = 2,
+	first_case_insensitive = false,
+	document = false,
+	document_command = "wn %s -over",
+	async = false,
+	sqlite = false,
+	max_items = -1,
+	capacity = 5,
+	debug = false,
+})
+
+local file = vim.fn.stdpath("data") .. "/../zsh/dictionary/my.dict"
+local dic = {}
+if vim.fn.filereadable(file) ~= 0 then
+	dic = { file }
+end
+
+dict.switcher({
+	spelllang = {
+		en = dic,
+	},
+})
+
+--lsp設定
