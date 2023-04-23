@@ -2,7 +2,10 @@ local wezterm = require 'wezterm';
 
 local config = {};
 
-config.font = wezterm.font("Fira Code"); -- 自分の好きなフォントいれる
+config.font = wezterm.font_with_fallback {
+  'Fira Code',
+  'Noto Sans CJK JP',
+}-- 自分の好きなフォントいれる
 config.use_ime = true; -- wezは日本人じゃないのでこれがないとIME動かない
 config.font_size = 16.0;
 config.colors = {
