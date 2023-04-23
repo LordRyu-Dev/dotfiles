@@ -190,11 +190,11 @@ setopt hist_verify
 setopt hist_reduce_blanks
 
 #入力途中の履歴補完
-autoload history-search-end
-zle -N history-beginning-search-backward-end history-search-end
-zle -N history-beginning-search-forward-end history-search-end
-bindkey "^[[A" history-beginning-search-backward-end
-bindkey "^[[B" history-beginning-search-forward-end
+# autoload history-search-end
+# zle -N history-beginning-search-backward-end history-search-end
+# zle -N history-beginning-search-forward-end history-search-end
+# bindkey "^[[A" history-beginning-search-backward-end
+# bindkey "^[[B" history-beginning-search-forward-end
 
 # historyコマンドは残さない
 #setopt hist_save_no_dups
@@ -306,6 +306,7 @@ source ~/.zplug/init.zsh
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
+zplug "zsh-users/zsh-history-substring-search"
 zplug "b4b4r07/enhancd", use:init.sh
 #zplug "junegunn/fzf-bin", as:command, from:gh-r, file:fzf
 
@@ -319,6 +320,10 @@ fi
 
 # コマンドをリンクして、PATH に追加し、プラグインは読み込む
 zplug load --verbose
+
+#historyから補完するキーバインド
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
 
 # -----------------------------
 # PATH
