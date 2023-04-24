@@ -1,8 +1,7 @@
 sena="Thank you for your commit!ろどりゅうさん(｡•ㅅ•｡)♡
-コミットお疲れさま！
-いつも頑張っててえらーい！"
+コミットお疲れさま！いつも頑張っててえらーい！"
 if test -e ~/senazshaa.txt;then
     cat ~/senazshaa.txt
     echo "$sena"
-    aplay ~/senaneg.wav
+    aplay ~/senaneg.wav > /dev/null
 fi
