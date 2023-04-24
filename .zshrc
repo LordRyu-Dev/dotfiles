@@ -376,3 +376,8 @@ function gs() {
   cut -d: -f1
 }
 
+# ----------------------------- 
+# Flutter
+# ----------------------------- 
+export PATH=/opt/flutter/bin:$PATH
+export CHROME_EXECUTABLE=vivaldi-stable
