@@ -448,3 +448,7 @@ for_window [class="Gcolor3"] floating enable
 
 # color_picker
 bindsym $mod+Shift+g exec --no-startup-id gcolor3
+
+# startup
+exec --no-startup-id discord
+exec --no-startup-id slack
