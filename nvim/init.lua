@@ -139,6 +139,7 @@ require("lazy").setup({
     'weilbith/nvim-lsp-smag',
     'kkharji/lspsaga.nvim',
     'folke/lsp-colors.nvim',
+	'ray-x/lsp_signature.nvim',
     'EthanJWright/toolwindow.nvim',
     'j-hui/fidget.nvim',
     'nvim-telescope/telescope.nvim',
@@ -152,7 +153,6 @@ require("lazy").setup({
     'nvim-treesitter/nvim-treesitter',
     'yioneko/nvim-yati',
     'nvim-treesitter/nvim-treesitter-context',
-    'p00f/nvim-ts-rainbow',
     'JoosepAlviste/nvim-ts-context-commentstring',
     'haringsrob/nvim_context_vt',
     'nvim-treesitter/nvim-treesitter-refactor',
@@ -284,6 +284,8 @@ require("lazy").setup({
     'MTDL9/vim-log-highlighting',
     'bfredl/nvim-luadev',
     'wadackel/nvim-syntax-info',
+	'williamboman/mason.nvim',
+	'williamboman/mason-lspconfig.nvim',
 })
 
 --hlslens設定
@@ -773,3 +775,229 @@ dict.switcher({
 })
 
 --lsp設定
+require("lsp_signature").setup()
+require("lspkind").init({
+	-- enables text annotations
+	--
+	-- default: true
+	mode = "symbol_text",
+
+	-- default symbol map
+	-- can be either 'default' (requires nerd-fonts font) or
+	-- 'codicons' for codicon preset (requires vscode-codicons font)
+	--
+	-- default: 'default'
+	preset = "codicons",
+
+	-- override preset symbols
+	--
+	-- default: {}
+	symbol_map = {
+		Text = "",
+		Method = "",
+		Function = "",
+		Constructor = "",
+		Field = "ﰠ",
+		Variable = "",
+		Class = "ﴯ",
+		Interface = "",
+		Module = "",
+		Property = "ﰠ",
+		Unit = "塞",
+		Value = "",
+		Enum = "",
+		Keyword = "",
+		Snippet = "",
+		Color = "",
+		File = "",
+		Reference = "",
+		Folder = "",
+		EnumMember = "",
+		Constant = "",
+		Struct = "פּ",
+		Event = "",
+		Operator = "",
+		TypeParameter = "",
+		-- Copilot = "",
+	},
+})
+require("lspsaga").setup()
+
+local keymap = vim.keymap.set
+
+-- LSP finder - Find the symbol's definition
+-- If there is no definition, it will instead be hidden
+-- When you use an action in finder like "open vsplit",
+-- you can use <C-t> to jump back
+keymap("n", "gh", "<cmd>Lspsaga lsp_finder<CR>")
+
+-- Code action
+keymap({"n","v"}, "<leader>ca", "<cmd>Lspsaga code_action<CR>")
+
+-- Rename all occurrences of the hovered word for the entire file
+keymap("n", "gr", "<cmd>Lspsaga rename<CR>")
+
+-- Rename all occurrences of the hovered word for the selected files
+keymap("n", "gr", "<cmd>Lspsaga rename ++project<CR>")
+
+-- Peek definition
+-- You can edit the file containing the definition in the floating window
+-- It also supports open/vsplit/etc operations, do refer to "definition_action_keys"
+-- It also supports tagstack
+-- Use <C-t> to jump back
+keymap("n", "gp", "<cmd>Lspsaga peek_definition<CR>")
+
+-- Go to definition
+keymap("n","gd", "<cmd>Lspsaga goto_definition<CR>")
+
+-- Peek type definition
+-- You can edit the file containing the type definition in the floating window
+-- It also supports open/vsplit/etc operations, do refer to "definition_action_keys"
+-- It also supports tagstack
+-- Use <C-t> to jump back
+keymap("n", "gt", "<cmd>Lspsaga peek_type_definition<CR>")
+
+-- Go to type definition
+keymap("n","gt", "<cmd>Lspsaga goto_type_definition<CR>")
+
+
+-- Show line diagnostics
+-- You can pass argument ++unfocus to
+-- unfocus the show_line_diagnostics floating window
+keymap("n", "<leader>sl", "<cmd>Lspsaga show_line_diagnostics<CR>")
+
+-- Show buffer diagnostics
+keymap("n", "<leader>sb", "<cmd>Lspsaga show_buf_diagnostics<CR>")
+
+-- Show workspace diagnostics
+keymap("n", "<leader>sw", "<cmd>Lspsaga show_workspace_diagnostics<CR>")
+
+-- Show cursor diagnostics
+keymap("n", "<leader>sc", "<cmd>Lspsaga show_cursor_diagnostics<CR>")
+
+-- Diagnostic jump
+-- You can use <C-o> to jump back to your previous location
+keymap("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
+keymap("n", "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>")
+
+-- Diagnostic jump with filters such as only jumping to an error
+keymap("n", "[E", function()
+  require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
+end)
+keymap("n", "]E", function()
+  require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
+end)
+
+-- Toggle outline
+keymap("n","<leader>o", "<cmd>Lspsaga outline<CR>")
+
+-- Hover Doc
+-- If there is no hover doc,
+-- there will be a notification stating that
+-- there is no information available.
+-- To disable it just use ":Lspsaga hover_doc ++quiet"
+-- Pressing the key twice will enter the hover window
+keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>")
+
+-- If you want to keep the hover window in the top right hand corner,
+-- you can pass the ++keep argument
+-- Note that if you use hover with ++keep, pressing this key again will
+-- close the hover window. If you want to jump to the hover window
+-- you should use the wincmd command "<C-w>w"
+keymap("n", "K", "<cmd>Lspsaga hover_doc ++keep<CR>")
+
+-- Call hierarchy
+keymap("n", "<Leader>ci", "<cmd>Lspsaga incoming_calls<CR>")
+keymap("n", "<Leader>co", "<cmd>Lspsaga outgoing_calls<CR>")
+
+-- Floating terminal
+keymap({"n", "t"}, "<A-d>", "<cmd>Lspsaga term_toggle<CR>")
+
+require("mason").setup({})
+
+vim.api.nvim_create_user_command("MasonUpgrade", function()
+	local registry = require("mason-registry")
+	registry.refresh()
+	registry.update()
+	local packages = registry.get_all_packages()
+	for _, pkg in ipairs(packages) do
+		if pkg:is_installed() then
+			pkg:install()
+		end
+	end
+	vim.cmd("doautocmd User MasonUpgradeComplete")
+end, { force = true })
+
+require("mason-lspconfig").setup()
+
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+-- selene: allow(unused_variable)
+---@diagnostic disable-next-line: unused-local
+local on_attach = function(client, bufnr)
+	local function buf_set_keymap(...)
+		vim.api.nvim_buf_set_keymap(bufnr, ...)
+	end
+
+	local function buf_set_option(...)
+		vim.api.nvim_buf_set_option(bufnr, ...)
+	end
+
+	-- Enable completion triggered by <c-x><c-o>
+	buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
+
+	-- Mappings.
+	local opts = { noremap = true, silent = true }
+
+	-- See `:help vim.lsp.*` for documentation on any of the below functions
+	buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+	buf_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+	buf_set_keymap("n", "?", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+	buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+	buf_set_keymap("n", "g?", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+	buf_set_keymap("n", "[_Lsp]wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
+	buf_set_keymap("n", "[_Lsp]wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
+	buf_set_keymap("n", "[_Lsp]wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
+	buf_set_keymap("n", "[_Lsp]D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
+	-- buf_set_keymap("n", "[_Lsp]rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+	buf_set_keymap("n", "[_Lsp]a", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+	buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+	buf_set_keymap("n", "[_Lsp]e", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
+	buf_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
+	buf_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
+	buf_set_keymap("n", "[_Lsp]q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
+	buf_set_keymap("n", "[_Lsp]f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+
+	-- require("lsp_signature").on_attach()
+	-- require("illuminate").on_attach(client)
+	-- require("nvim-navic").attach(client, bufnr)
+end
+
+local lspconfig = require("lspconfig")
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+require("mason-lspconfig").setup_handlers({
+	function(server_name)
+		lspconfig[server_name].setup({ capabilities = capabilities, on_attach = on_attach })
+	end,
+	["rust_analyzer"] = function()
+		local has_rust_tools, rust_tools = pcall(require, "rust-tools")
+		if has_rust_tools then
+			rust_tools.setup({ server = { capabilities = capabilities, on_attach = on_attach } })
+		else
+			lspconfig.rust_analyzer.setup({ capabilities = capabilities, on_attach = on_attach })
+		end
+	end,
+	["lua_ls"] = function()
+		lspconfig.lua_ls.setup({
+			capabilities = capabilities,
+			on_attach = on_attach,
+			settings = {
+				Lua = {
+					diagnostics = {
+						globals = { "vim" },
+					},
+				},
+			},
+		})
+	end,
+})
