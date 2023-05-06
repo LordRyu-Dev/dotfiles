@@ -12,6 +12,7 @@ autoload -Uz colors ; colors
 
 # エディタをnvimに設定
 export EDITOR=nvim
+bindkey -e
 
 # Ctrl+Dでログアウトしてしまうことを防ぐ
 #setopt IGNOREEOF

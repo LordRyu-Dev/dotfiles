@@ -137,7 +137,7 @@ require("lazy").setup({
     'williamboman/nvim-lsp-installer',
     'tamago324/nlsp-settings.nvim',
     'weilbith/nvim-lsp-smag',
-    'kkharji/lspsaga.nvim',
+    'nvimdev/lspsaga.nvim',
     'folke/lsp-colors.nvim',
 	'ray-x/lsp_signature.nvim',
     'EthanJWright/toolwindow.nvim',
@@ -286,6 +286,9 @@ require("lazy").setup({
     'wadackel/nvim-syntax-info',
 	'williamboman/mason.nvim',
 	'williamboman/mason-lspconfig.nvim',
+	'akinsho/flutter-tools.nvim',
+	'jose-elias-alvarez/null-ls.nvim',
+	'MunifTanjim/prettier.nvim',
 })
 
 --hlslens設定
@@ -775,6 +778,11 @@ dict.switcher({
 })
 
 --lsp設定
+local signs = { Error = "", Warn = "", Hint = "", Info = "" }
+for type, icon in pairs(signs) do
+	local hl = "DiagnosticSign" .. type
+	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
 require("lsp_signature").setup()
 require("lspkind").init({
 	-- enables text annotations
@@ -928,7 +936,9 @@ vim.api.nvim_create_user_command("MasonUpgrade", function()
 	vim.cmd("doautocmd User MasonUpgradeComplete")
 end, { force = true })
 
-require("mason-lspconfig").setup()
+require("mason-lspconfig").setup({
+ensure_installed = { "tsserver", }
+})
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -1001,3 +1011,78 @@ require("mason-lspconfig").setup_handlers({
 		})
 	end,
 })
+
+local lspsaga = require("lspsaga")
+lspsaga.setup({ -- defaults ...
+	ui = {
+		code_action = "",
+		diagnostic = "",
+	},
+	lightbulb = {
+		virtual_text = false,
+	},
+	finder = {
+		scroll_down = "<C-f>",
+		scroll_up = "<C-b>", -- quit can be a table
+		quit = { "q", "<ESC>" },
+	},
+	symbol_in_winbar = {
+		enable = false,
+		show_file = false,
+	},
+})
+
+vim.keymap.set("n", "[_Lsp]r", "<cmd>Lspsaga rename ++project<cr>", { silent = true, noremap = true })
+vim.keymap.set("n", "M", "<cmd>Lspsaga code_action<cr>", { silent = true, noremap = true })
+vim.keymap.set("x", "M", ":<c-u>Lspsaga range_code_action<cr>", { silent = true, noremap = true })
+vim.keymap.set("n", "?", "<cmd>Lspsaga hover_doc<cr>", { silent = true, noremap = true })
+vim.keymap.set("n", "[_Lsp]j", "<cmd>Lspsaga diagnostic_jump_next<cr>", { silent = true, noremap = true })
+vim.keymap.set("n", "[_Lsp]k", "<cmd>Lspsaga diagnostic_jump_prev<cr>", { silent = true, noremap = true })
+vim.keymap.set("n", "[_Lsp]f", "<cmd>Lspsaga lsp_finder<CR>", { silent = true, noremap = true })
+vim.keymap.set("n", "[_Lsp]s", "<Cmd>Lspsaga signature_help<CR>", { silent = true, noremap = true })
+vim.keymap.set("n", "[_Lsp]d", "<cmd>Lspsaga preview_definition<CR>", { silent = true })
+vim.keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<CR>", { silent = true, noremap = true })
+-- vim.keymap.set("n", "gd", "<cmd>Lspsaga goto_definition<CR>")
+vim.keymap.set("n", "[_Lsp]l", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = true, noremap = true })
+vim.keymap.set("n", "[_Lsp]c", "<cmd>Lspsaga show_cursor_diagnostics<CR>", { silent = true, noremap = true })
+vim.keymap.set("n", "[_Lsp]b", "<cmd>Lspsaga show_buf_diagnostics<CR>", { silent = true, noremap = true })
+vim.keymap.set("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>", { silent = true, noremap = true })
+vim.keymap.set("n", "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>", { silent = true, noremap = true })
+vim.keymap.set("n", "[E", function()
+	require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
+end, { silent = true, noremap = true })
+vim.keymap.set("n", "]E", function()
+	require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
+end, { silent = true, noremap = true })
+vim.keymap.set("n", "<leader>o", "<cmd>Lspsaga outline<CR>", { silent = true, noremap = true })
+vim.keymap.set("n", "[_Lsp]I", "<cmd>Lspsaga incoming_calls<CR>", { silent = true, noremap = true })
+vim.keymap.set("n", "[_Lsp]O", "<cmd>Lspsaga outgoing_calls<CR>", { silent = true, noremap = true })
+
+--TypeScript設定
+require'lspconfig'.tsserver.setup{
+	filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx"},
+	root_dir = function() return vim.loop.cwd() end
+}
+
+--prettier設定
+local status, prettier = pcall(require, "prettier")
+if (not status) then return end
+
+prettier.setup {
+	bin = 'prettierd',
+	filetypes = {
+		"html",
+		"css",
+		"javascript",
+		"javascriptreact",
+		"typescript",
+		"typescriptreact",
+		"json",
+		"scss",
+		"less"
+	}
+}
+
+
+--flutter設定
+require("flutter-tools").setup {} -- use defaults
