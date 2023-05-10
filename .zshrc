@@ -228,6 +228,7 @@ alias picomconf='nvim ~/.config/picom.conf'
 alias polybarini='nvim ~/dotfiles/.config/polybar/config.ini'
 alias conkyconf='nvim ~/.config/conky/conky.conf'
 alias wezsplit='wezterm cli split-pane'
+alias reflectorjp="sudo reflector --country 'Japan' --age 24 --protocol https --sort rate --save /etc/pacman.d/mirrorlist"
 #alias lst='ls -ltr --color=auto'
 #alias ls='ls --color=auto'
 #alias la='ls -la --color=auto'
