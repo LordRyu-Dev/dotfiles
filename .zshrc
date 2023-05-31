@@ -225,10 +225,12 @@ alias zshrc='nvim ~/.zshrc'
 alias i3config='nvim ~/.config/i3/config'
 alias weztermlua='nvim ~/.config/wezterm/wezterm.lua'
 alias picomconf='nvim ~/.config/picom.conf'
-alias polybarini='nvim ~/dotfiles/.config/polybar/config.ini'
+alias polybarini='nvim ~/.config/polybar/config.ini'
 alias conkyconf='nvim ~/.config/conky/conky.conf'
+alias conkysena='nvim ~/.config/conky/conkysena.conf'
 alias wezsplit='wezterm cli split-pane'
 alias reflectorjp="sudo reflector --country 'Japan' --age 24 --protocol https --sort rate --save /etc/pacman.d/mirrorlist"
+alias polybarconfig="nvim ~/.config/polybar/config"
 #alias lst='ls -ltr --color=auto'
 #alias ls='ls --color=auto'
 #alias la='ls -la --color=auto'

@@ -336,6 +336,7 @@ exec_always --no-startup-id picom -b
 
 # start conky:
 exec --no-startup-id conky -b -c ~/.config/conky/conky.conf
+# exec --no-startup-id conky -b -c ~/.config/conky/conkysena.conf
 
 #get auth work with polkit-gnome
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
@@ -346,7 +347,7 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 # set wallpaper
 # exec --no-startup-id sleep 2 && nitrogen --restore
-exec --no-startup-id sleep 1 && feh --bg-fill /home/lordryu/Pictures/wallpaper/senawallpaper_zwei.png --bg-fill /home/lordryu/Pictures/wallpaper/senawallpaper.png
+exec --no-startup-id sleep 1 && feh --randomize --bg-fill ~/Pictures/wallpaper/sena/  
 
 # Desktop notifications
 exec --no-startup-id dbus-launch dunst --config ~/.config/dunst/dunstrc

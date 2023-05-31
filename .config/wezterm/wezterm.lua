@@ -2,35 +2,20 @@ local wezterm = require 'wezterm';
 
 local config = {};
 
-config.font = wezterm.font_with_fallback {
-  'Fira Code',
-  'Noto Sans Mono CJK JP',
-}-- 自分の好きなフォントいれる
-config.use_ime = true; -- wezは日本人じゃないのでこれがないとIME動かない
+config.font = wezterm.font_with_fallback { 'Fira Code', 'Noto Sans Mono CJK JP' } -- 自分の好きなフォントいれる
+config.use_ime = true;                                                          -- wezは日本人じゃないのでこれがないとIME動かない
 config.font_size = 16.0;
 config.colors = {
     foreground = '#ffffff',
-    background = '#120537',
+    background = '#172863',
 
     ansi = {
-        '#17115c',
-        '#8a5288',
-        '#b962ee',
-        '#c49251',
-        '#0d3687',
-        '#4100aa',
-        '#0b92be',
-        '#acb5c5',
+        '#17115c', '#8a5288', '#9962ee', '#c49251', '#0d3687', '#5a22dd',
+        '#0b92be', '#acb5c5'
     },
     brights = {
-        '#2f3f8c',
-        '#ff9fed', 
-        '#d57cff',
-        '#ffe49c',
-        '#5b83ef',
-        '#8b55ff',
-        '#a4fdf3',
-        '#f1f3fd',
+        '#2f3f8c', '#ff9fed', '#d57cff', '#ffe49c', '#5b83ef', '#8b55ff',
+        '#a4fdf3', '#f1f3fd'
     }
 };
 
