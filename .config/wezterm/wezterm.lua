@@ -10,14 +10,15 @@ config.colors = {
     background = '#172863',
 
     ansi = {
-        '#17115c', '#8a5288', '#9962ee', '#c49251', '#0d3687', '#5a22dd',
+        '#17115c', '#aa3388', '#9b22ee', '#c49251', '#0d3687', '#5a3aee',
         '#0b92be', '#acb5c5'
     },
     brights = {
-        '#2f3f8c', '#ff9fed', '#d57cff', '#ffe49c', '#5b83ef', '#8b55ff',
+        '#2f3f8c', '#ff9fed', '#d88fff', '#ffe49c', '#5b83ef', '#9e7aff',
         '#a4fdf3', '#f1f3fd'
     }
 };
-
+config.window_decorations = "TITLE"
 config.adjust_window_size_when_changing_font_size = false;
+config.tab_bar_style = {}
 return config;

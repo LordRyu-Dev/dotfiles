@@ -274,10 +274,10 @@ alias polybarconfig="nvim ~/.config/polybar/config"
 #  egrep -r "$1" .
 #}
 
-function t()
-{
-  tmux new-session -s $(pwd |sed -E 's!^.+/([^/]+/[^/]+)$!\1!g' | sed -e 's/\./-/g')
-}
+# function t()
+# {
+#   tmux new-session -s $(pwd |sed -E 's!^.+/([^/]+/[^/]+)$!\1!g' | sed -e 's/\./-/g')
+# }
 
 function psgrep() {
   ps aux | grep -v grep | grep "USER.*COMMAND"
@@ -323,7 +323,7 @@ if ! zplug check --verbose; then
 fi
 
 # コマンドをリンクして、PATH に追加し、プラグインは読み込む
-zplug load --verbose
+zplug load --verbose > /dev/null
 
 #historyから補完するキーバインド
 bindkey '^[[A' history-substring-search-up

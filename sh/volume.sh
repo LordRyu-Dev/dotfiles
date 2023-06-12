@@ -1,6 +1,10 @@
 #!/bin/zsh
 # volume.sh
 
+if [ $$ -ne $(pgrep -fo "$0") ]; then
+    exit 1
+fi
+
 device="Master"
 
 # Arbitrary but unique message id
@@ -23,3 +27,5 @@ fi
 
 # Play the volume changed sound
 canberra-gtk-play -i audio-volume-change -d "volume.sh"
+
+exit 0
