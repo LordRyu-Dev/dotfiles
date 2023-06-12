@@ -1,2 +1,2 @@
-.config/nvim
-.config/nvim/*
+/.config/nvim/*
+!/.config/nvim/lua/user
