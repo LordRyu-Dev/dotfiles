@@ -1,3 +1,4 @@
 WebBrowser=vivaldi-stable
-TerminalEmulator=custom-TerminalEmulator
+TerminalEmulator=alacritty
+FileManager=custom-FileManager
 

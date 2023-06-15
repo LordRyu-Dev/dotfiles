@@ -4,7 +4,7 @@ local config = {};
 
 config.font = wezterm.font_with_fallback { 'Fira Code', 'Noto Sans Mono CJK JP' } -- 自分の好きなフォントいれる
 config.use_ime = true;                                                          -- wezは日本人じゃないのでこれがないとIME動かない
-config.font_size = 16.0;
+config.font_size = 14.0;
 config.colors = {
     foreground = '#ffffff',
     background = '#172863',

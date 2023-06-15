@@ -231,6 +231,7 @@ alias conkysena='nvim ~/.config/conky/conkysena.conf'
 alias wezsplit='wezterm cli split-pane'
 alias reflectorjp="sudo reflector --country 'Japan' --age 24 --protocol https --sort rate --save /etc/pacman.d/mirrorlist"
 alias polybarconfig="nvim ~/.config/polybar/config"
+alias xampp-control-panel="sudo /opt/lampp/manager-linux-x64.run"
 #alias lst='ls -ltr --color=auto'
 #alias ls='ls --color=auto'
 #alias la='ls -la --color=auto'
@@ -385,3 +386,4 @@ function gs() {
 # ----------------------------- 
 export PATH=/opt/flutter/bin:$PATH
 export CHROME_EXECUTABLE=vivaldi-stable
+export PATH=/opt/lampp/bin/:$PATH

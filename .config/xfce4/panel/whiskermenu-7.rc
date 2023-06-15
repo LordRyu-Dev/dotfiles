@@ -1,5 +1,5 @@
 favorites=
-recent=org.wezfurlong.wezterm.desktop,pavucontrol.desktop,xfce-session-settings.desktop,gparted.desktop,steam.desktop,org.xfce.Catfish.desktop,vim.desktop
+recent=xfce4-mime-settings.desktop,xfce-session-settings.desktop,org.wezfurlong.wezterm.desktop,pavucontrol.desktop,gparted.desktop,steam.desktop,org.xfce.Catfish.desktop,vim.desktop
 button-icon=archlinux-logo
 button-single-row=false
 show-button-title=false

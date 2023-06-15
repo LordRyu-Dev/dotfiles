@@ -5,9 +5,17 @@
     <property name="screen0" type="empty">
       <property name="monitoreDP-1" type="empty">
         <property name="workspace0" type="empty">
-          <property name="color-style" type="int" value="0"/>
-          <property name="image-style" type="int" value="5"/>
-          <property name="last-image" type="string" value="/home/lordryu/Pictures/wallpaper/senawallpaper_zwei.png"/>
+          <property name="color-style" type="int" value="3"/>
+          <property name="image-style" type="int" value="4"/>
+          <property name="last-image" type="string" value="/home/lordryu/Pictures/wallpaper/sena/senawallpaper.png"/>
+          <property name="backdrop-cycle-enable" type="bool" value="true"/>
+          <property name="backdrop-cycle-timer" type="uint" value="3"/>
+          <property name="rgba1" type="array">
+            <value type="double" value="0.5"/>
+            <value type="double" value="0.5"/>
+            <value type="double" value="0.5"/>
+            <value type="double" value="1"/>
+          </property>
         </property>
         <property name="workspace1" type="empty">
           <property name="color-style" type="int" value="0"/>

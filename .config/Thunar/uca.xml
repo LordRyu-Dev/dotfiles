@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actions>
 <action>
-	<icon>org.xfce.terminal</icon>
-	<name>Terminal</name>
+	<icon>Alacritty</icon>
+	<name>Alacritty</name>
 	<submenu></submenu>
-	<unique-id>1680081729328368-1</unique-id>
-	<command>xfce4-terminal --working-directory %f</command>
-	<description>Terminal</description>
+	<unique-id>1686805407338948-1</unique-id>
+	<command>alacritty --working-directory %f</command>
+	<description>Akacrittyターミナルを開く</description>
 	<range>*</range>
 	<patterns>*</patterns>
 	<directories/>
@@ -43,6 +43,17 @@
 	<range></range>
 	<patterns>*</patterns>
 	<other-files/>
+</action>
+<action>
+	<icon>org.xfce.terminal</icon>
+	<name>Terminal</name>
+	<submenu></submenu>
+	<unique-id>1680081729328368-1</unique-id>
+	<command>xfce4-terminal --working-directory %f</command>
+	<description>Terminal</description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<directories/>
 </action>
 <action>
 	<icon>org.wezfurlong.wezterm</icon>

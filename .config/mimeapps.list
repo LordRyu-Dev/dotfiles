@@ -1,12 +1,38 @@
 [Default Applications]
-x-scheme-handler/http=xfce4-web-browser.desktop
-x-scheme-handler/https=xfce4-web-browser.desktop
+x-scheme-handler/http=vivaldi-stable.desktop
+x-scheme-handler/https=vivaldi-stable.desktop
 image/png=org.xfce.ristretto.desktop
+application/x-shellscript=userapp-alacritty -e nvim %f-F8MZ21.desktop
+application/x-csh=vim.desktop
+text/tcl=vim.desktop
+application/x-zerosize=userapp-alacritty -e nvim %f-JNND41.desktop
+text/plain=userapp-alacritty -e nvim %F-S6W651.desktop
+text/html=vivaldi-stable.desktop
+x-scheme-handler/about=vivaldi-stable.desktop
+x-scheme-handler/unknown=vivaldi-stable.desktop
+text/x-csrc=userapp-alacritty -e nvim %F-7AW221.desktop
+application/sql=userapp-alacritty -e nvim %F-7AW221.desktop
+application/atom+xml=userapp-alacritty -e nvim %F-S6W651.desktop
+application/gml+xml=userapp-alacritty -e nvim %F-S6W651.desktop
+application/gpx+xml=userapp-alacritty -e nvim %F-S6W651.desktop
 
 [Added Associations]
 x-scheme-handler/http=xfce4-web-browser.desktop;
 x-scheme-handler/https=xfce4-web-browser.desktop;
 image/png=org.xfce.ristretto.desktop;
 image/jpeg=org.xfce.ristretto.desktop;
-text/plain=vim.desktop;org.xfce.mousepad.desktop;
+text/plain=nvim.desktop;userapp-alacritty -e nvim %f-F8MZ21.desktop;vim.desktop;org.xfce.mousepad.desktop;userapp-wezterm -e 'vim %F'-GKQN21.desktop;userapp-wezterm -e nvim %F-7AW221.desktop;userapp-alacritty -e nvim %F-S6W651.desktop;
 application/pdf=libreoffice-draw.desktop;libreoffice-writer.desktop;
+application/x-shellscript=userapp-alacritty -e nvim %f-F8MZ21.desktop;vim.desktop;
+application/x-csh=nvim.desktop;vim.desktop;
+text/tcl=vim.desktop;
+application/x-desktop=vim.desktop;gvim.desktop;
+application/x-zerosize=nvim.desktop;vim.desktop;userapp-alacritty -e nvim %f-F8MZ21.desktop;userapp-wezterm -e nvim %f-JNND41.desktop;
+application/xml=vim.desktop;
+text/x-csrc=userapp-alacritty -e nvim %F-7AW221.desktop;
+audio/mpeg=audacity.desktop;
+text/html=userapp-alacritty -e nvim '%F'-KZUJ51.desktop;userapp-wezterm -e nvim %f-JNND41.desktop;userapp-wezterm -e nvim %F-7AW221.desktop;vivaldi-stable.desktop;
+application/sql=userapp-alacritty -e nvim %F-7AW221.desktop;
+application/atom+xml=userapp-alacritty -e nvim %F-S6W651.desktop;
+application/gml+xml=userapp-alacritty -e nvim %F-S6W651.desktop;
+application/gpx+xml=userapp-alacritty -e nvim %F-S6W651.desktop;
