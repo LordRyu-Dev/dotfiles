@@ -7,6 +7,7 @@
 # -----------------------------
 # General
 # -----------------------------
+export TMUX_TMPDIR=/tmp
 # 色を使用
 autoload -Uz colors ; colors
 
@@ -219,8 +220,9 @@ setopt hist_reduce_blanks
 
 # エイリアス
 alias neofetch='neofetch --source ~/senaaa.txt'
-alias vimrc='nvim ~/.vimrc'
-alias initlua='nvim ~/.config/nvim/init.lua'
+#alias vimrc='nvim ~/.vimrc'
+#alias initlua='nvim ~/.config/nvim/init.lua'
+alias inittoml="nvim ~/.SpaceVim.d/init.toml"
 alias zshrc='nvim ~/.zshrc'
 alias i3config='nvim ~/.config/i3/config'
 alias weztermlua='nvim ~/.config/wezterm/wezterm.lua'
@@ -387,3 +389,4 @@ function gs() {
 export PATH=/opt/flutter/bin:$PATH
 export CHROME_EXECUTABLE=vivaldi-stable
 export PATH=/opt/lampp/bin/:$PATH
+

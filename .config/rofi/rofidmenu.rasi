@@ -11,7 +11,7 @@ configuration {
     disable-history:     false;
     sidebar-mode:        false;
     font: "Fira Code 10";
-    terminal: "wezterm";
+    terminal: "alacritty";
 }
 
 @import "~/.config/rofi/arc_dark_transparent_colors.rasi"

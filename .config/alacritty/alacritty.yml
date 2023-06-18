@@ -448,9 +448,12 @@ colors:
 # Default:
 #   - (Linux/BSD/macOS) `$SHELL` or the user's login shell, if `$SHELL` is unset
 #   - (Windows) powershell
-#shell:
-#  program: /bin/bash
-#  args:
+shell:
+  program: /bin/zsh
+  args:
+    - -l
+    - -c
+    - 'tmux a -t default || tmux new -s default\;' # source ~/.config/tmux/default.session.conf'
 #    - --login
 
 # Startup directory

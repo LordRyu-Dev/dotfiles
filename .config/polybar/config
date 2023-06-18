@@ -43,11 +43,18 @@ bottom = false
 ; FONTS ;
 ;-------;
 
-font-0 = Fira Code:size=11:antialias=true;3
-font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=11;3"
-font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=11;3"
-font-3 = "Font Awesome 5 Brands:pixelsize=11;3"
-font-4 = "Fira Code:size=11;3"
+font-0 = Fira Code:size=11;3
+font-1 = "Font Awesome 6 Free:style=Solid:pixelsize=11;3"
+font-2 = "Font Awesome 6 Free:style=Regular:pixelsize=11;3"
+font-3 = "Font Awesome 6 Brands:pixelsize=11;3"
+font-4 = "FiraCode Nerd Font:style=Regular:pixelsize=11;3"
+font-5 = "Material Icons:style=Regular;3"
+font-6 = "github-octicons:style=Regular;3"
+font-7 = "Weather Icons:style=Regular"
+font-8 = "all-the-icons:style=Regular"
+font-9 = "file-icons:style=Regular"
+font-10 = "Fira Code:size=11;3"
+font-11 = "Noto Sans CJK JP:size=11;3"
 
 ;--------;
 ; COLORS ;
@@ -131,11 +138,18 @@ bottom = true
 ; FONTS ;
 ;-------;
 
-font-0 = Fira Code:size=11:antialias=true;3
+font-0 = Fira Code:size=11;3
 font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=11;3"
 font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=11;3"
 font-3 = "Font Awesome 5 Brands:pixelsize=11;3"
-font-4 = "Fira Code:size=11;3"
+font-4 = "FiraCode Nerd Font:style=Regular:pixelsize=11;3"
+font-5 = "Material Icons:style=Regular;3"
+font-6 = "github-octicons:style=Regular;3"
+font-7 = "Weather Icons:style=Regular"
+font-8 = "all-the-icons:style=Regular"
+font-9 = "file-icons:style=Regular"
+font-10 = "Fira Code:size=11;3"
+font-11 = "Noto Sans CJK JP:size=11;3"
 
 ;--------;
 ; COLORS ;
@@ -364,7 +378,7 @@ date-alt = " %Y-%m-%d"
 time = %H:%M
 time-alt = %H:%M:%S
 
-format-prefix =  
+format-prefix =  
 format-prefix-foreground = ${colors.primary}
 format-underline = 
 format-foreground = ${colors.primary}

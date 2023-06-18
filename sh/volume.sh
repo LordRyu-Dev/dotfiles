@@ -2,7 +2,7 @@
 # volume.sh
 
 if [ $$ -ne $(pgrep -fo "$0") ]; then
-    exit 1
+  exit 1
 fi
 
 device="Master"
@@ -19,7 +19,7 @@ mute="$(amixer -c 0 get $device | tail -1 | awk '{print $6}' | sed 's/[^a-z]*//g
 if [[ $volume == 0 || "$mute" == "off" ]]; then
     # Show the sound muted notification
     dunstify -a "volume.sh" -u low -i audio-volume-muted -r "$msgId" "Volume muted" 
-else
+  else
     # Show the volume notification
     dunstify -a "volume.sh" -u low -i audio-volume-high -r "$msgId" \
     -h int:value:"$volume" "Volume: ${volume}%"

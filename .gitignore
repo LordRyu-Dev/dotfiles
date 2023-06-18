@@ -1,2 +1,2 @@
-/.config/nvim/*
-!/.config/nvim/lua/user
+/.config/nvim_astro/*
+!/.config/nvim_astro/lua/user
