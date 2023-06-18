@@ -166,7 +166,7 @@
     max_icon_size = 32
 
     # Paths to default icons.
-    icon_path = ~/.icons/oomox-arc-gruv/32x32/status/:~/.icons/oomox-arc-gruv/32x32/devices/
+    icon_path = /usr/share/icons/Pop/32x32/status/:/usr/share/icons/Pop/32x32/devices/
 
     ### History ###
 
@@ -279,14 +279,14 @@
     foreground = "#fbf1c7"
     timeout = 7
     # Icon for notifications with low urgency, uncomment to enable
-    icon = /home/vasco/.config/dunst/normal.png
+    icon = ~/.config/dunst/normal.png
 
 [urgency_normal]
     background = "#282828"
     foreground = "#fbf1c7"
     timeout = 7
     # Icon for notifications with normal urgency, uncomment to enable
-    icon = /home/vasco/.config/dunst/normal.png
+    icon = ~/.config/dunst/normal.png
 
 [urgency_critical]
     background = "#cc241d"
