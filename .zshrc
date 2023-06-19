@@ -390,3 +390,4 @@ export PATH=/opt/flutter/bin:$PATH
 export CHROME_EXECUTABLE=vivaldi-stable
 export PATH=/opt/lampp/bin/:$PATH
 
+eval "$(pyenv init --path)"

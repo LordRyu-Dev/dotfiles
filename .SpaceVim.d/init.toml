@@ -23,6 +23,9 @@
     buffer_index_type = 4
     enable_tabline_filetype_icon = true
     enable_statusline_mode = false
+    filemanager = 'defx'
+    bootstrap_before = 'myspacevim#before'
+    bootstrap_after = 'myspacevim#after'
 
 # Enable autocomplete layer
 [[layers]]
