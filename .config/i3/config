@@ -292,16 +292,27 @@ bindsym $mod+shift+s exec xfce4-screenshooter -r
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1:"
-set $ws2 "2:"
-set $ws3 "3:"
-set $ws4 "4:"
-set $ws5 "5:"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
+set $ws1 "1:"
+set $ws2 "2:"
+set $ws3 "3:"
+set $ws4 "4:"
+set $ws5 "5:"
+set $ws6 "6:"
+set $ws7 "7:"
+set $ws8 "8:"
+set $ws9 "9:"
+set $we10 "10:"
+
+# ws-icon-0 = 1;
+# ws-icon-1 = 2;
+# ws-icon-2 = 3;
+# ws-icon-3 = 4;
+# ws-icon-4 = 5;
+# ws-icon-5 = 6;;
+# ws-icon-6 = 7;;
+# ws-icon-7 = 8;;
+# ws-icon-8 = 9;;
+# ws-icon-default = 
 
 # use workspaces on different displays:
 # where you have to replace VGA-0/HDMI-0 with the names for your displays
